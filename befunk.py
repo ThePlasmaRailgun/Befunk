@@ -305,6 +305,14 @@ def execute(f):
         m.append(list_)
     m = [list(i) for i in zip(*m)]  # invert the axes of m, so it's the list of rows and not columns.
     i.close()
+    for i in range(len(m)-1, -1, -1):
+        if all(x == 555 for x in m[i]):
+            m.pop()
+    l = [list(i) for i in zip(*m)]
+    for i in range(len(l)-1, -1, -1):
+        if all(x == 555 for x in l[i]):
+            l.pop()
+    m = [list(i) for i in zip(*l)]
     print(u"Befunge program (inaccurate): \n{0}\n".format(
         "\n".join(["".join([(instrDict[m[y][x]] if m[y][x] in instrDict else " ")
                             for x in range(len(m[y]))]) for y in range(len(m))])))
@@ -354,4 +362,4 @@ if __name__ == '__main__':
         except:
             print("Please enter 'y', 'n', 'yes', or 'no'.")
     execute(f)
-    input()
+
