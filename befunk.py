@@ -330,10 +330,15 @@ def execute(f):
         exec(m[y][x])
         if debug:
             print("\nProgram: " + str(m))
-            print("Stack: " + " | ".join([(str(i) + " (%s)" % chr(i % 255)) for i in stackstack[-1]]))
+            print("Stack: ", end="")
+            for i in stackstack[-1]:
+                try: print(str(i) + " (%s)" % chr(i % 256), end=" | ")
+                except: print(i)
+            print("")
             print("Number executed: " + str(m[y][x]) + (" (Befunge: %s)" % instrDict[m[y][x]] if not stringmode and m[y][x] in instrDict else "(%s)" % chr(m[y][x] % 255) if stringmode else ""))
             print("X: " + str(x))
             print("Y: " + str(y))
+            print("Delta: " + str(delta))
             input()
         x, y = move(x, y)
 
