@@ -297,21 +297,23 @@ def execute(f):
         list_ = []
         for k in range(i.size[1]):
             count = 2
-            woo = 0
+            count2 = 0
             for n in l[j, k]:
-                woo += ((n % 10) * 10 ** count)
+                count2 += ((n % 10) * 10 ** count)
                 count -= 1
-            list_.append(int(woo))
+            list_.append(int(count2))
         m.append(list_)
     m = [list(i) for i in zip(*m)]  # invert the axes of m, so it's the list of rows and not columns.
     i.close()
     for i in range(len(m)-1, -1, -1):
         if all(x == 555 for x in m[i]):
             m.pop()
+        else: break
     l = [list(i) for i in zip(*m)]
     for i in range(len(l)-1, -1, -1):
         if all(x == 555 for x in l[i]):
             l.pop()
+        else: break
     m = [list(i) for i in zip(*l)]
     print(u"Befunge program (inaccurate): \n{0}\n".format(
         "\n".join(["".join([(instrDict[m[y][x]] if m[y][x] in instrDict else " ")
@@ -329,7 +331,7 @@ def execute(f):
         if debug:
             print("\nProgram: " + str(m))
             print("Stack: " + " | ".join([(str(i) + " (%s)" % chr(i % 255)) for i in stackstack[-1]]))
-            print("Number executed: " + str(m[y][x]) + (" (Befunge: %s)" % instrDict[m[y][x]] if not stringmode and m[y][x] in instrDict else "(%s)" % chr(m[y][x]) % 255 if stringmode else ""))
+            print("Number executed: " + str(m[y][x]) + (" (Befunge: %s)" % instrDict[m[y][x]] if not stringmode and m[y][x] in instrDict else "(%s)" % chr(m[y][x] % 255) if stringmode else ""))
             print("X: " + str(x))
             print("Y: " + str(y))
             input()
